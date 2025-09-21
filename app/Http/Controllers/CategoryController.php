@@ -55,7 +55,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        $category->delete(); // cascade will remove subcategories & products (if DB constraints set)
+        $category->delete();
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }
 }

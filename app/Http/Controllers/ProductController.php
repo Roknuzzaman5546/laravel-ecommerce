@@ -21,7 +21,6 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        // we will load subcategories via AJAX when a category is selected
         return view('products.create', compact('categories'));
     }
 
@@ -29,7 +28,6 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-        // generate unique slug
         $slugBase = Str::slug($data['name']);
         $slug = $slugBase;
         $i = 1;
@@ -37,8 +35,6 @@ class ProductController extends Controller
             $slug = $slugBase . '-' . $i++;
         }
         $data['slug'] = $slug;
-
-        // handle image
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');
         }
@@ -51,7 +47,6 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        // subcategories for the product's category to populate dropdown
         $subcategories = Subcategory::where('category_id', $product->category_id)->get();
         return view('products.edit', compact('product', 'categories', 'subcategories'));
     }
@@ -69,14 +64,12 @@ class ProductController extends Controller
         }
         $data['slug'] = $slug;
 
-        // handle image replace
         if ($request->hasFile('image')) {
             if ($product->image && Storage::disk('public')->exists($product->image)) {
                 Storage::disk('public')->delete($product->image);
             }
             $data['image'] = $request->file('image')->store('products', 'public');
         } else {
-            // keep existing image if present
             $data['image'] = $product->image;
         }
 
@@ -95,7 +88,6 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 
-    // show product by slug (frontend single page)
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->firstOrFail();
