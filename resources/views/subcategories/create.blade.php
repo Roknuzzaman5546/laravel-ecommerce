@@ -7,7 +7,7 @@
   @csrf
   <div class="mb-3">
     <label class="form-label">Category</label>
-    <select name="category_id" class="form-control" required>
+    <select name="category_id" class="form-control">
       <option value="">-- Select Category --</option>
       @foreach($categories as $cat)
         <option value="{{ $cat->id }}" @selected(old('category_id') == $cat->id)>{{ $cat->name }}</option>
@@ -18,7 +18,7 @@
 
   <div class="mb-3">
     <label class="form-label">Subcategory Name</label>
-    <input name="name" value="{{ old('name') }}" class="form-control" required>
+    <input name="name" value="{{ old('name') }}" class="form-control">
     @error('name') <div class="text-danger">{{ $message }}</div> @enderror
   </div>
 

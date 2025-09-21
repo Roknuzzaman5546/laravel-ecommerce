@@ -1,6 +1,6 @@
 <div class="mb-3">
     <label class="form-label">Category</label>
-    <select id="category_id" name="category_id" class="form-control" required>
+    <select id="category_id" name="category_id" class="form-control">
         <option value="">-- Select Category --</option>
         @foreach(\App\Models\Category::all() as $cat)
             <option value="{{ $cat->id }}" @if(old('category_id', $product->category_id ?? '') == $cat->id) selected @endif>
@@ -13,7 +13,7 @@
 
 <div class="mb-3">
     <label class="form-label">Subcategory</label>
-    <select id="subcategory_id" name="subcategory_id" class="form-control" required>
+    <select id="subcategory_id" name="subcategory_id" class="form-control">
         <option value="">-- Select Subcategory --</option>
         @if(isset($subcategories))
             @foreach($subcategories as $s)
@@ -32,7 +32,7 @@
 
 <div class="mb-3">
     <label class="form-label">Product Name</label>
-    <input name="name" class="form-control" value="{{ old('name', $product->name ?? '') }}" required>
+    <input name="name" class="form-control" value="{{ old('name', $product->name ?? '') }}">
     @error('name') <div class="text-danger">{{ $message }}</div> @enderror
 </div>
 

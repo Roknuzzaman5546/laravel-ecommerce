@@ -7,7 +7,7 @@
   @csrf
   <div class="mb-3">
     <label class="form-label">Name</label>
-    <input name="name" value="{{ old('name') }}" class="form-control" required>
+    <input name="name" value="{{ old('name') }}" class="form-control">
     @error('name') <div class="text-danger">{{ $message }}</div> @enderror
   </div>
 
