@@ -14,8 +14,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $subcategories = Subcategory::with('category', 'products')->get();
-        return view('products.index', compact('subcategories'));
+        $categories = Category::with(['subcategories.products'])->get();
+        return view('products.index', compact('categories'));
     }
 
     public function create()
